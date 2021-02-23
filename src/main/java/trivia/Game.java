@@ -104,6 +104,8 @@ public class Game implements IGame {
            case "Rock":
                question = rockQuestions.remove(0);
                break;
+           default:
+               throw new IllegalStateException("Unexpected value: " + currentCategory());
        }
 
       System.out.println(question);
