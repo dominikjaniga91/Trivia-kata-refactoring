@@ -97,10 +97,9 @@ public class Game implements IGame {
             isGettingOutOfPenaltyBox = true;
 
             System.out.println(players.get(currentPlayer).getName() + " is getting out of the penalty box");
-            places[currentPlayer] = places[currentPlayer] + roll;
-            if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
+             advancePlayer(roll);
 
-            System.out.println(players.get(currentPlayer).getName()
+             System.out.println(players.get(currentPlayer).getName()
                                + "'s new location is "
                                + places[currentPlayer]);
             System.out.println("The category is " + currentCategory());
@@ -112,10 +111,9 @@ public class Game implements IGame {
 
       } else {
 
-         places[currentPlayer] = places[currentPlayer] + roll;
-         if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
+          advancePlayer(roll);
 
-         System.out.println(players.get(currentPlayer).getName()
+          System.out.println(players.get(currentPlayer).getName()
                             + "'s new location is "
                             + places[currentPlayer]);
          System.out.println("The category is " + currentCategory());
@@ -124,7 +122,14 @@ public class Game implements IGame {
 
    }
 
-   private void askQuestion() {
+    private void advancePlayer(int roll) {
+        places[currentPlayer] += roll;
+        if (places[currentPlayer] >= 12) {
+            places[currentPlayer] -= 12;
+        }
+    }
+
+    private void askQuestion() {
       String question = extractNextQuestion();
         System.out.println(question);
    }
