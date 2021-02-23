@@ -7,7 +7,7 @@ import java.util.Objects;
 
 final class Player {
     private final String name;
-    private final int place = 0;
+    private int place = 0;
 
     Player(String name) {
         this.name = name;
@@ -17,8 +17,12 @@ final class Player {
         return name;
     }
 
-    public int getPlace() {
+    public int place() {
         return place;
+    }
+
+    public void place(int place) {
+        this.place = place;
     }
 
     @Override
@@ -40,7 +44,6 @@ final class Player {
                 "name=" + name + ", " +
                 "place=" + place + ']';
     }
-
 
 }
 
@@ -124,8 +127,10 @@ public class Game implements IGame {
 
     private void advancePlayer(int roll) {
         places[currentPlayer] += roll;
-        if (places[currentPlayer] >= 12) {
+        players.get(currentPlayer).place(currentPlayer() + roll);
+        if (currentPlayer() >= 12) {
             places[currentPlayer] -= 12;
+            players.get(currentPlayer).place(currentPlayer() - 12);
         }
     }
 
@@ -146,19 +151,23 @@ public class Game implements IGame {
 
 
     private String currentCategory() {
-      if (places[currentPlayer] == 0) return "Pop";
-      if (places[currentPlayer] == 4) return "Pop";
-      if (places[currentPlayer] == 8) return "Pop";
-      if (places[currentPlayer] == 1) return "Science";
-      if (places[currentPlayer] == 5) return "Science";
-      if (places[currentPlayer] == 9) return "Science";
-      if (places[currentPlayer] == 2) return "Sports";
-      if (places[currentPlayer] == 6) return "Sports";
-      if (places[currentPlayer] == 10) return "Sports";
+      if (currentPlayer() == 0) return "Pop";
+      if (currentPlayer() == 4) return "Pop";
+      if (currentPlayer() == 8) return "Pop";
+      if (currentPlayer() == 1) return "Science";
+      if (currentPlayer() == 5) return "Science";
+      if (currentPlayer() == 9) return "Science";
+      if (currentPlayer() == 2) return "Sports";
+      if (currentPlayer() == 6) return "Sports";
+      if (currentPlayer() == 10) return "Sports";
       return "Rock";
    }
 
-   public boolean wasCorrectlyAnswered() {
+    private int currentPlayer() {
+        return players.get(currentPlayer).place();
+    }
+
+    public boolean wasCorrectlyAnswered() {
       if (inPenaltyBox[currentPlayer]) {
          if (isGettingOutOfPenaltyBox) {
             System.out.println("Answer was correct!!!!");
