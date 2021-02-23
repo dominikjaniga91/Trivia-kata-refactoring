@@ -89,30 +89,22 @@ public class Game implements IGame {
    }
 
    private void askQuestion() {
-      String question = null;
-
-       switch (currentCategory()) {
-           case "Pop":
-               question = popQuestions.remove(0);
-               break;
-           case "Science":
-               question = scienceQuestions.remove(0);
-               break;
-           case "Sports":
-               question = sportsQuestions.remove(0);
-               break;
-           case "Rock":
-               question = rockQuestions.remove(0);
-               break;
-           default:
-               throw new IllegalStateException("Unexpected value: " + currentCategory());
-       }
-
-      System.out.println(question);
+      String question = extractNextQuestion();
+        System.out.println(question);
    }
 
+    private String extractNextQuestion() {
+        return switch (currentCategory()) {
+            case "Pop" -> popQuestions.remove(0);
+            case "Science" -> scienceQuestions.remove(0);
+            case "Sports" -> sportsQuestions.remove(0);
+            case "Rock" -> rockQuestions.remove(0);
+            default -> throw new IllegalStateException("Unexpected value: " + currentCategory());
+        };
+    }
 
-   private String currentCategory() {
+
+    private String currentCategory() {
       if (places[currentPlayer] == 0) return "Pop";
       if (places[currentPlayer] == 4) return "Pop";
       if (places[currentPlayer] == 8) return "Pop";
