@@ -88,16 +88,26 @@ public class Game implements IGame {
 
    }
 
-    private void askQuestion() {
-        if (currentCategory() == "Pop")
-            System.out.println(popQuestions.remove(0));
-        if (currentCategory() == "Science")
-            System.out.println(scienceQuestions.remove(0));
-        if (currentCategory() == "Sports")
-            System.out.println(sportsQuestions.remove(0));
-        if (currentCategory() == "Rock")
-            System.out.println(rockQuestions.remove(0));
-    }
+   private void askQuestion() {
+      String question = null;
+
+       switch (currentCategory()) {
+           case "Pop":
+               question = popQuestions.remove(0);
+               break;
+           case "Science":
+               question = scienceQuestions.remove(0);
+               break;
+           case "Sports":
+               question = sportsQuestions.remove(0);
+               break;
+           case "Rock":
+               question = rockQuestions.remove(0);
+               break;
+       }
+
+      System.out.println(question);
+   }
 
 
    private String currentCategory() {
