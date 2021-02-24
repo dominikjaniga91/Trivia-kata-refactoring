@@ -118,7 +118,7 @@ public class Game implements IGame {
 
           System.out.println(players.get(currentPlayer).getName()
                             + "'s new location is "
-                            + places[currentPlayer]);
+                            + currentPlayer().place());
          System.out.println("The category is " + currentCategory());
          askQuestion();
       }
@@ -127,10 +127,10 @@ public class Game implements IGame {
 
     private void advancePlayer(int roll) {
         places[currentPlayer] += roll;
-        players.get(currentPlayer).place(currentPlayer() + roll);
-        if (currentPlayer() >= 12) {
+        players.get(currentPlayer).place(currentPlayer().place() + roll);
+        if (currentPlayer().place() >= 12) {
             places[currentPlayer] -= 12;
-            players.get(currentPlayer).place(currentPlayer() - 12);
+            players.get(currentPlayer).place(currentPlayer().place() - 12);
         }
     }
 
@@ -151,20 +151,20 @@ public class Game implements IGame {
 
 
     private String currentCategory() {
-      if (currentPlayer() == 0) return "Pop";
-      if (currentPlayer() == 4) return "Pop";
-      if (currentPlayer() == 8) return "Pop";
-      if (currentPlayer() == 1) return "Science";
-      if (currentPlayer() == 5) return "Science";
-      if (currentPlayer() == 9) return "Science";
-      if (currentPlayer() == 2) return "Sports";
-      if (currentPlayer() == 6) return "Sports";
-      if (currentPlayer() == 10) return "Sports";
+      if (currentPlayer().place() == 0) return "Pop";
+      if (currentPlayer().place() == 4) return "Pop";
+      if (currentPlayer().place() == 8) return "Pop";
+      if (currentPlayer().place() == 1) return "Science";
+      if (currentPlayer().place() == 5) return "Science";
+      if (currentPlayer().place() == 9) return "Science";
+      if (currentPlayer().place() == 2) return "Sports";
+      if (currentPlayer().place() == 6) return "Sports";
+      if (currentPlayer().place() == 10) return "Sports";
       return "Rock";
    }
 
-    private int currentPlayer() {
-        return players.get(currentPlayer).place();
+    private Player currentPlayer() {
+        return players.get(currentPlayer);
     }
 
     public boolean wasCorrectlyAnswered() {
