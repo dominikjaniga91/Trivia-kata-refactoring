@@ -50,7 +50,6 @@ final class Player {
 
 public class Game implements IGame {
    List<Player> players = new ArrayList<>();
-   int[] places = new int[6];
    int[] purses = new int[6];
    boolean[] inPenaltyBox = new boolean[6];
 
@@ -78,7 +77,6 @@ public class Game implements IGame {
     public boolean add(String playerName) {
 
       players.add(new Player(playerName));
-      places[howManyPlayers()] = 0;
       purses[howManyPlayers()] = 0;
       inPenaltyBox[howManyPlayers()] = false;
 
@@ -104,7 +102,7 @@ public class Game implements IGame {
 
              System.out.println(players.get(currentPlayer).getName()
                                + "'s new location is "
-                               + places[currentPlayer]);
+                               + currentPlayer().place());
             System.out.println("The category is " + currentCategory());
             askQuestion();
          } else {
@@ -126,10 +124,8 @@ public class Game implements IGame {
    }
 
     private void advancePlayer(int roll) {
-        places[currentPlayer] += roll;
         players.get(currentPlayer).place(currentPlayer().place() + roll);
         if (currentPlayer().place() >= 12) {
-            places[currentPlayer] -= 12;
             players.get(currentPlayer).place(currentPlayer().place() - 12);
         }
     }
