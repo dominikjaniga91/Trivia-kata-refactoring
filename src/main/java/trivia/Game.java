@@ -21,10 +21,6 @@ final class Player {
         return place;
     }
 
-    public void place(int place) {
-        this.place = place;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (obj == this) return true;
@@ -45,6 +41,12 @@ final class Player {
                 "place=" + place + ']';
     }
 
+    void advancePlayer(int roll) {
+        place += roll;
+        if (place >= 12) {
+            place -= 12;
+        }
+    }
 }
 
 
@@ -124,10 +126,7 @@ public class Game implements IGame {
    }
 
     private void advancePlayer(int roll) {
-        players.get(currentPlayer).place(currentPlayer().place() + roll);
-        if (currentPlayer().place() >= 12) {
-            players.get(currentPlayer).place(currentPlayer().place() - 12);
-        }
+        currentPlayer().advancePlayer(roll);
     }
 
     private void askQuestion() {
