@@ -52,6 +52,10 @@ final class Player {
     public void addCoin() {
         coin++;
     }
+
+    public int coins() {
+        return coin;
+    }
 }
 
 
@@ -175,7 +179,7 @@ public class Game implements IGame {
             currentPlayer().addCoin();
             System.out.println(players.get(currentPlayer).getName()
                                + " now has "
-                               + purses[currentPlayer]
+                               + currentPlayer().coins()
                                + " Gold Coins.");
 
             boolean winner = didPlayerWin();
@@ -197,7 +201,7 @@ public class Game implements IGame {
          currentPlayer().addCoin();
          System.out.println(players.get(currentPlayer).getName()
                             + " now has "
-                            + purses[currentPlayer]
+                            + currentPlayer().coins()
                             + " Gold Coins.");
 
          boolean winner = didPlayerWin();
