@@ -8,6 +8,7 @@ import java.util.Objects;
 final class Player {
     private final String name;
     private int place = 0;
+    private int coin = 0;
 
     Player(String name) {
         this.name = name;
@@ -46,6 +47,10 @@ final class Player {
         if (place >= 12) {
             place -= 12;
         }
+    }
+
+    public void addCoin() {
+        coin++;
     }
 }
 
@@ -167,6 +172,7 @@ public class Game implements IGame {
          if (isGettingOutOfPenaltyBox) {
             System.out.println("Answer was correct!!!!");
             purses[currentPlayer]++;
+            currentPlayer().addCoin();
             System.out.println(players.get(currentPlayer).getName()
                                + " now has "
                                + purses[currentPlayer]
@@ -188,6 +194,7 @@ public class Game implements IGame {
 
          System.out.println("Answer was corrent!!!!");
          purses[currentPlayer]++;
+         currentPlayer().addCoin();
          System.out.println(players.get(currentPlayer).getName()
                             + " now has "
                             + purses[currentPlayer]
