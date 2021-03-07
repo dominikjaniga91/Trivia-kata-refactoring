@@ -69,21 +69,20 @@ final class Player {
 
 
 public class Game implements IGame {
-    List<Player> players = new ArrayList<>();
+    private final List<Player> players = new ArrayList<>();
+    private final List<String> popQuestions = new LinkedList<>();
+    private final List<String> scienceQuestions = new LinkedList<>();
+    private final List<String> sportsQuestions = new LinkedList<>();
+    private final List<String> rockQuestions = new LinkedList<>();
 
-    List<String> popQuestions = new LinkedList<>();
-    List<String> scienceQuestions = new LinkedList<>();
-    List<String> sportsQuestions = new LinkedList<>();
-    List<String> rockQuestions = new LinkedList<>();
-
-    int currentPlayer = 0;
-    boolean isGettingOutOfPenaltyBox;
+    private int currentPlayer = 0;
+    private boolean isGettingOutOfPenaltyBox;
 
     public Game() {
         for (int i = 0; i < 50; i++) {
             popQuestions.add("Pop Question " + i);
-            scienceQuestions.add(("Science Question " + i));
-            sportsQuestions.add(("Sports Question " + i));
+            scienceQuestions.add("Science Question " + i);
+            sportsQuestions.add("Sports Question " + i);
             rockQuestions.add(createRockQuestion(i));
         }
     }
