@@ -146,10 +146,12 @@ public class Game implements IGame {
 
     private String currentCategory() {
         int modulo = currentPlayer().place() % 4;
-        if (modulo == 0) return "Pop";
-        if (modulo == 1) return "Science";
-        if (modulo == 2) return "Sports";
-        return "Rock";
+        return switch (modulo) {
+            case 0 -> "Pop";
+            case 1 -> "Science";
+            case 2 -> "Sports";
+            default -> "Rock";
+        };
     }
 
     private Player currentPlayer() {
