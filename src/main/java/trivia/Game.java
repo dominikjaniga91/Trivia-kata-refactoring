@@ -135,22 +135,38 @@ public class Game implements IGame {
 
     private String extractNextQuestion() {
         return switch (currentCategory()) {
-            case "Pop" -> popQuestions.remove(0);
-            case "Science" -> scienceQuestions.remove(0);
-            case "Sports" -> sportsQuestions.remove(0);
-            case "Rock" -> rockQuestions.remove(0);
-            default -> throw new IllegalStateException("Unexpected value: " + currentCategory());
+            case POP -> popQuestions.remove(0);
+            case SCIENCE -> scienceQuestions.remove(0);
+            case SPORTS -> sportsQuestions.remove(0);
+            case ROCK -> rockQuestions.remove(0);
         };
     }
 
+    enum QuestionCategory {
+        POP("Pop"),
+        SCIENCE("Science"),
+        SPORTS("Sports"),
+        ROCK("Rock");
 
-    private String currentCategory() {
-        int modulo = currentPlayer().place() % 4;
-        return switch (modulo) {
-            case 0 -> "Pop";
-            case 1 -> "Science";
-            case 2 -> "Sports";
-            default -> "Rock";
+        private final String value;
+
+        QuestionCategory(String value) {
+            this.value = value;
+        }
+
+
+        @Override
+        public String toString() {
+            return value;
+        }
+    }
+
+    private QuestionCategory currentCategory() {
+        return switch (currentPlayer().place() % 4) {
+            case 0 -> QuestionCategory.POP;
+            case 1 -> QuestionCategory.SCIENCE;
+            case 2 -> QuestionCategory.SPORTS;
+            default -> QuestionCategory.ROCK;
         };
     }
 
