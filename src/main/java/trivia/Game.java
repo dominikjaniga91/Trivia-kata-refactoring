@@ -145,15 +145,9 @@ public class Game implements IGame {
 
 
     private String currentCategory() {
-        if (currentPlayer().place() == 0) return "Pop";
-        if (currentPlayer().place() == 4) return "Pop";
-        if (currentPlayer().place() == 8) return "Pop";
-        if (currentPlayer().place() == 1) return "Science";
-        if (currentPlayer().place() == 5) return "Science";
-        if (currentPlayer().place() == 9) return "Science";
-        if (currentPlayer().place() == 2) return "Sports";
-        if (currentPlayer().place() == 6) return "Sports";
-        if (currentPlayer().place() == 10) return "Sports";
+        if (currentPlayer().place() % 4 == 0) return "Pop";
+        if (currentPlayer().place() % 4 == 1) return "Science";
+        if (currentPlayer().place() % 4 == 2) return "Sports";
         return "Rock";
     }
 
