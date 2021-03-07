@@ -102,16 +102,14 @@ public class Game implements IGame {
             if (roll % 2 != 0) {
                 isGettingOutOfPenaltyBox = true;
 
-                System.out.println(players.get(currentPlayer).getName() + " is getting out of the penalty box");
+                System.out.printf("%s is getting out of the penalty box%n", players.get(currentPlayer).getName());
                 advancePlayer(roll);
 
-                System.out.println(players.get(currentPlayer).getName()
-                        + "'s new location is "
-                        + currentPlayer().place());
-                System.out.println("The category is " + currentCategory());
+                System.out.printf("%s's new location is %d%n", players.get(currentPlayer).getName(), currentPlayer().place());
+                System.out.printf("The category is %s%n", currentCategory());
                 askQuestion();
             } else {
-                System.out.println(players.get(currentPlayer).getName() + " is not getting out of the penalty box");
+                System.out.printf("%s is not getting out of the penalty box%n", players.get(currentPlayer).getName());
                 isGettingOutOfPenaltyBox = false;
             }
 
@@ -119,10 +117,8 @@ public class Game implements IGame {
 
             advancePlayer(roll);
 
-            System.out.println(players.get(currentPlayer).getName()
-                    + "'s new location is "
-                    + currentPlayer().place());
-            System.out.println("The category is " + currentCategory());
+            System.out.printf("%s's new location is %d%n", players.get(currentPlayer).getName(), currentPlayer().place());
+            System.out.printf("The category is %s%n", currentCategory());
             askQuestion();
         }
 
@@ -170,10 +166,7 @@ public class Game implements IGame {
             if (isGettingOutOfPenaltyBox) {
                 System.out.println("Answer was correct!!!!");
                 currentPlayer().addCoin();
-                System.out.println(players.get(currentPlayer).getName()
-                        + " now has "
-                        + currentPlayer().coins()
-                        + " Gold Coins.");
+                System.out.printf("%s now has %d Gold Coins.%n", players.get(currentPlayer).getName(), currentPlayer().coins());
 
                 boolean winner = didPlayerWin();
                 currentPlayer++;
@@ -191,10 +184,7 @@ public class Game implements IGame {
 
             System.out.println("Answer was corrent!!!!");
             currentPlayer().addCoin();
-            System.out.println(players.get(currentPlayer).getName()
-                    + " now has "
-                    + currentPlayer().coins()
-                    + " Gold Coins.");
+            System.out.printf("%s now has %d Gold Coins.%n", players.get(currentPlayer).getName(), currentPlayer().coins());
 
             boolean winner = didPlayerWin();
             currentPlayer++;
@@ -206,7 +196,7 @@ public class Game implements IGame {
 
     public boolean wrongAnswer() {
         System.out.println("Question was incorrectly answered");
-        System.out.println(players.get(currentPlayer).getName() + " was sent to the penalty box");
+        System.out.printf("%s was sent to the penalty box%n", players.get(currentPlayer).getName());
         currentPlayer().moveToPenaltyBox();
 
         currentPlayer++;
