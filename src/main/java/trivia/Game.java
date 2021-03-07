@@ -64,6 +64,10 @@ final class Player {
     public boolean isInPenaltyBox() {
         return inPenaltyBox;
     }
+
+    boolean didPlayerWin() {
+        return !(coins() == 6);
+    }
 }
 
 
@@ -131,7 +135,7 @@ public class Game implements IGame {
                 currentPlayer().addCoin();
                 System.out.printf("%s now has %d Gold Coins.%n", players.get(currentPlayer).getName(), currentPlayer().coins());
 
-                boolean winner = didPlayerWin();
+                boolean winner = currentPlayer().didPlayerWin();
                 moveToNextPlayer();
 
                 return winner;
@@ -147,7 +151,7 @@ public class Game implements IGame {
             currentPlayer().addCoin();
             System.out.printf("%s now has %d Gold Coins.%n", players.get(currentPlayer).getName(), currentPlayer().coins());
 
-            boolean winner = didPlayerWin();
+            boolean winner = currentPlayer().didPlayerWin();
             moveToNextPlayer();
 
             return winner;
@@ -169,7 +173,4 @@ public class Game implements IGame {
     }
 
 
-    private boolean didPlayerWin() {
-        return !(currentPlayer().coins() == 6);
-    }
 }
