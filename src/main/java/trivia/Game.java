@@ -77,9 +77,6 @@ public class Game implements IGame {
     private int currentPlayer = 0;
     private boolean isGettingOutOfPenaltyBox;
 
-    public Game() {
-
-    }
 
     public void add(String playerName) {
 
