@@ -28,12 +28,12 @@ public class Questions {
         };
     }
 
-    public Game.QuestionCategory currentCategory(int index) {
+    public QuestionCategory currentCategory(int index) {
         return switch (index % 4) {
-            case 0 -> Game.QuestionCategory.POP;
-            case 1 -> Game.QuestionCategory.SCIENCE;
-            case 2 -> Game.QuestionCategory.SPORTS;
-            default -> Game.QuestionCategory.ROCK;
+            case 0 -> QuestionCategory.POP;
+            case 1 -> QuestionCategory.SCIENCE;
+            case 2 -> QuestionCategory.SPORTS;
+            default -> QuestionCategory.ROCK;
         };
     }
 }

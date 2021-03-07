@@ -123,24 +123,6 @@ public class Game implements IGame {
         System.out.println(question);
     }
 
-    enum QuestionCategory {
-        POP("Pop"),
-        SCIENCE("Science"),
-        SPORTS("Sports"),
-        ROCK("Rock");
-
-        private final String value;
-
-        QuestionCategory(String value) {
-            this.value = value;
-        }
-
-        @Override
-        public String toString() {
-            return value;
-        }
-    }
-
 
     private Player currentPlayer() {
         return players.get(currentPlayer);
