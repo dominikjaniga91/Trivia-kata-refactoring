@@ -74,7 +74,7 @@ public class Game implements IGame {
     private final List<String> scienceQuestions = new LinkedList<>();
     private final List<String> sportsQuestions = new LinkedList<>();
     private final List<String> rockQuestions = new LinkedList<>();
-
+    private final Questions questions = new Questions();
     private int currentPlayer = 0;
     private boolean isGettingOutOfPenaltyBox;
 
@@ -106,7 +106,7 @@ public class Game implements IGame {
                 advancePlayer(roll);
 
                 System.out.printf("%s's new location is %d%n", players.get(currentPlayer).getName(), currentPlayer().place());
-                System.out.printf("The category is %s%n", currentCategory());
+                System.out.printf("The category is %s%n", questions.currentCategory());
                 askQuestion();
             } else {
                 System.out.printf("%s is not getting out of the penalty box%n", players.get(currentPlayer).getName());
@@ -118,7 +118,7 @@ public class Game implements IGame {
             advancePlayer(roll);
 
             System.out.printf("%s's new location is %d%n", players.get(currentPlayer).getName(), currentPlayer().place());
-            System.out.printf("The category is %s%n", currentCategory());
+            System.out.printf("The category is %s%n", questions.currentCategory());
             askQuestion();
         }
 
@@ -129,17 +129,8 @@ public class Game implements IGame {
     }
 
     private void askQuestion() {
-        String question = extractNextQuestion();
+        String question = questions.extractNextQuestion();
         System.out.println(question);
-    }
-
-    private String extractNextQuestion() {
-        return switch (currentCategory()) {
-            case POP -> popQuestions.remove(0);
-            case SCIENCE -> scienceQuestions.remove(0);
-            case SPORTS -> sportsQuestions.remove(0);
-            case ROCK -> rockQuestions.remove(0);
-        };
     }
 
     enum QuestionCategory {
@@ -154,21 +145,38 @@ public class Game implements IGame {
             this.value = value;
         }
 
-
         @Override
         public String toString() {
             return value;
         }
     }
 
-    private QuestionCategory currentCategory() {
-        return switch (currentPlayer().place() % 4) {
-            case 0 -> QuestionCategory.POP;
-            case 1 -> QuestionCategory.SCIENCE;
-            case 2 -> QuestionCategory.SPORTS;
-            default -> QuestionCategory.ROCK;
-        };
+    class Questions {
+
+        private String extractNextQuestion() {
+            return switch (currentCategory()) {
+                case POP -> popQuestions.remove(0);
+                case SCIENCE -> scienceQuestions.remove(0);
+                case SPORTS -> sportsQuestions.remove(0);
+                case ROCK -> rockQuestions.remove(0);
+            };
+        }
+
+        private QuestionCategory currentCategory() {
+            return switch (currentPlayer().place() % 4) {
+                case 0 -> QuestionCategory.POP;
+                case 1 -> QuestionCategory.SCIENCE;
+                case 2 -> QuestionCategory.SPORTS;
+                default -> QuestionCategory.ROCK;
+            };
+        }
     }
+
+
+
+
+
+
 
     private Player currentPlayer() {
         return players.get(currentPlayer);
