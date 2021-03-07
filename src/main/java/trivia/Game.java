@@ -1,7 +1,6 @@
 package trivia;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
@@ -70,21 +69,12 @@ final class Player {
 
 public class Game implements IGame {
     private final List<Player> players = new ArrayList<>();
-    private final List<String> popQuestions = new LinkedList<>();
-    private final List<String> scienceQuestions = new LinkedList<>();
-    private final List<String> sportsQuestions = new LinkedList<>();
-    private final List<String> rockQuestions = new LinkedList<>();
     private final Questions questions = new Questions();
     private int currentPlayer = 0;
     private boolean isGettingOutOfPenaltyBox;
 
     public Game() {
-        for (int i = 0; i < 50; i++) {
-            popQuestions.add("Pop Question " + i);
-            scienceQuestions.add("Science Question " + i);
-            sportsQuestions.add("Sports Question " + i);
-            rockQuestions.add("Rock Question " + i);
-        }
+
     }
 
     public void add(String playerName) {
@@ -106,7 +96,7 @@ public class Game implements IGame {
                 advancePlayer(roll);
 
                 System.out.printf("%s's new location is %d%n", players.get(currentPlayer).getName(), currentPlayer().place());
-                System.out.printf("The category is %s%n", questions.currentCategory());
+                System.out.printf("The category is %s%n", questions.currentCategory(currentPlayer().place()));
                 askQuestion();
             } else {
                 System.out.printf("%s is not getting out of the penalty box%n", players.get(currentPlayer).getName());
@@ -118,7 +108,7 @@ public class Game implements IGame {
             advancePlayer(roll);
 
             System.out.printf("%s's new location is %d%n", players.get(currentPlayer).getName(), currentPlayer().place());
-            System.out.printf("The category is %s%n", questions.currentCategory());
+            System.out.printf("The category is %s%n", questions.currentCategory(currentPlayer().place()));
             askQuestion();
         }
 
@@ -129,7 +119,7 @@ public class Game implements IGame {
     }
 
     private void askQuestion() {
-        String question = questions.extractNextQuestion();
+        String question = questions.extractNextQuestion(currentPlayer().place());
         System.out.println(question);
     }
 
@@ -150,32 +140,6 @@ public class Game implements IGame {
             return value;
         }
     }
-
-    class Questions {
-
-        private String extractNextQuestion() {
-            return switch (currentCategory()) {
-                case POP -> popQuestions.remove(0);
-                case SCIENCE -> scienceQuestions.remove(0);
-                case SPORTS -> sportsQuestions.remove(0);
-                case ROCK -> rockQuestions.remove(0);
-            };
-        }
-
-        private QuestionCategory currentCategory() {
-            return switch (currentPlayer().place() % 4) {
-                case 0 -> QuestionCategory.POP;
-                case 1 -> QuestionCategory.SCIENCE;
-                case 2 -> QuestionCategory.SPORTS;
-                default -> QuestionCategory.ROCK;
-            };
-        }
-    }
-
-
-
-
-
 
 
     private Player currentPlayer() {
