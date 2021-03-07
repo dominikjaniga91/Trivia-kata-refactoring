@@ -94,10 +94,6 @@ public class Game implements IGame {
         System.out.println("They are player number " + players.size());
     }
 
-    public int howManyPlayers() {
-        return players.size();
-    }
-
     public void roll(int roll) {
         System.out.println(players.get(currentPlayer).getName() + " is the current player");
         System.out.println("They have rolled a " + roll);
